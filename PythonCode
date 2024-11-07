@@ -1,0 +1,163 @@
+import matplotlib.pyplot as plt
+import numpy as np
+from tkinter import *
+from sympy import *
+
+tk = Tk()
+
+def plotit():
+    if str(entry5.get()) == 'x':
+
+        fig, ax = plt.subplots()
+
+        try:
+            float(entry4.get())
+            y = np.linspace(-1000, 1000, 2)
+            x = np.linspace(int(entry4.get()), int(entry4.get()), 2)
+            ax.plot(x, y,label = 'x = '+str(entry4.get()))
+        except:
+            y = np.linspace(-1000, 1000, 100000)
+            x = eval(entry4.get())
+            ax.plot(x, y)
+            ax.plot(x, y,label = 'x = '+str(entry4.get()))
+
+
+
+        try:
+            float(entry2.get())
+            y1 = np.linspace(-1000, 1000, 2)
+            x1 = np.linspace(int(entry2.get()), int(entry2.get()), 2)
+            ax.plot(x1, y1,label = 'x = '+str(entry2.get()))
+
+        except:
+            y = np.linspace(-1000, 1000, 100000)
+            x = eval(entry2.get())
+            ax.plot(x, y,label = 'x = '+str(entry2.get()))
+
+
+        try:
+            float(entry3.get())
+            x = np.linspace(-1000, 1000, 2)
+            y = np.linspace(int(entry3.get()), int(entry3.get()), 2)
+            ax.plot(x, y,label = 'y = '+str(entry3.get()))
+        except:
+            x = np.linspace(-1000, 1000, 100000)
+            y = eval(entry3.get())
+            ax.plot(x, y,label = 'y = '+str(entry3.get()))
+
+
+        try:
+            float(entry1.get())
+            x = np.linspace(-1000, 1000, 2)
+            y = np.linspace(int(entry1.get()), int(entry1.get()), 2)
+            ax.plot(x, y,label = 'y = '+str(entry1.get()))
+        except:
+            x = np.linspace(-1000, 1000, 100000)
+            y = eval(entry1.get())
+            ax.plot(x, y,label = 'y = '+str(entry1.get()))
+
+        x,y = symbols('x y')
+
+        f = sympify(entryFunc.get())
+
+        answer = integrate(integrate(f,(x,sympify(entry4.get()),sympify(entry2.get()))), (y,sympify(entry3.get()),sympify(entry1.get())))
+
+        answerLab.configure(text = str(answer))
+
+    elif str(entry5.get()) == 'y':
+        fig, ax = plt.subplots()
+        try:
+            float(entry4.get())
+            x = np.linspace(-1000, 1000, 2)
+            y = np.linspace(int(entry4.get()), int(entry4.get()), 2)
+            ax.plot(x, y,label = 'y = '+str(entry4.get()))
+        except:
+            x = np.linspace(-1000, 1000, 100000)
+            y = eval(entry4.get())
+            ax.plot(x, y,label = 'y = '+str(entry4.get()))
+
+        try:
+            float(entry2.get())
+            x1 = np.linspace(-1000, 1000, 2)
+            y1 = np.linspace(int(entry2.get()), int(entry2.get()), 2)
+            ax.plot(x1, y1,label = 'y = '+str(entry2.get()))
+
+        except:
+            x = np.linspace(-1000, 1000, 100000)
+            y = eval(entry2.get())
+            ax.plot(x, y,label = 'y = '+str(entry2.get()))
+
+        try:
+            float(entry3.get())
+            y = np.linspace(-1000, 1000, 2)
+            x = np.linspace(int(entry3.get()), int(entry3.get()), 2)
+            ax.plot(x, y,label = 'x = '+str(entry3.get()))
+        except:
+            y = np.linspace(-1000, 1000, 100000)
+            x = eval(entry3.get())
+            ax.plot(x, y,label = 'x = '+str(entry3.get()))
+
+        try:
+            float(entry1.get())
+            y = np.linspace(-1000, 1000, 2)
+            x = np.linspace(int(entry1.get()), int(entry1.get()), 2)
+            ax.plot(x, y,label = 'x = '+str(entry1.get()))
+        except:
+            y = np.linspace(-1000, 1000, 100000)
+            x = eval(entry1.get())
+            ax.plot(x, y,label = 'x = '+str(entry1.get()))
+
+        x, y = symbols('x y')
+
+        f = sympify(entryFunc.get())
+
+        answer = integrate(integrate(f, (y, sympify(entry4.get()), sympify(entry2.get()))),(x, sympify(entry3.get()), sympify(entry1.get())))
+
+        answerLab.configure(text = str(answer))
+
+    x = np.linspace(0, 0, 2)
+    y = np.linspace(-1000, 1000, 2)
+    ax.plot(x, y,color = 'black')
+
+    x = np.linspace(-1000, 1000, 2)
+    y = np.linspace(0, 0, 2)
+    ax.plot(x, y,color = 'black')
+
+    ax.set_title('Basic Line Plot')
+    ax.set_xlabel('x-axis')
+    ax.set_ylabel('y-axis')
+    ax.legend(loc='upper left', fontsize='small', shadow=False, title="Legend")
+    ax.set_xlim(-20, 20)
+    ax.set_ylim(-20, 20)
+
+    plt.show()
+
+doubleIntLab = Label(tk,text = '∫    ∫         d   d',font = ('Ariel',30))
+doubleIntLab.place(relx=0.5,rely=0.25,anchor = CENTER)
+
+entry1 = Entry(tk,width = 5)
+entry1.place(relx=0.15,rely=0.1,anchor = CENTER)
+entry2 = Entry(tk,width = 5)
+entry2.place(relx=0.35,rely=0.1,anchor = CENTER)
+entry3 = Entry(tk,width = 5)
+entry3.place(relx=0.15,rely=0.4,anchor = CENTER)
+entry4 = Entry(tk,width = 5)
+entry4.place(relx=0.35,rely=0.4,anchor = CENTER)
+
+entry5 = Entry(tk,width = 4)
+entry5.place(relx=0.76,rely=0.25,anchor = CENTER)
+entry6 = Entry(tk,width = 4)
+entry6.place(relx=0.94,rely=0.25,anchor = CENTER)
+
+entryFunc = Entry(tk,width = 14)
+entryFunc.place(relx=0.47,rely=0.25,anchor = CENTER)
+
+runBut = Button(tk,text = 'run',bg = 'green',font = ('Ariel',15),command=plotit)
+runBut.place(relx=0.8,rely=0.45,anchor = CENTER)
+
+answerLab = Label(tk,text = '',font = ('Ariel',15))
+answerLab.place(relx=0.5,rely=0.7,anchor = CENTER)
+
+tk.geometry('300x250')
+tk.title('Double Integral Solver')
+tk.mainloop()
